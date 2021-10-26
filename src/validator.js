@@ -5,8 +5,8 @@ function validate(rulesHandlers, rules, value) {
   let errors = [];
 
   if (rules) {
-    // проходим по масиву правил для поля
-    // param это данные для настройки функциии валидатора
+    // проходим по массиву правил для поля
+    // param это данные для настройки функции валидатора
     for (let [nameRule, param] of Object.entries(rules)) {
       // берём правила валидации и проверяем значение с нужными параметрами
       let _param = param;

@@ -1,36 +1,76 @@
+/**
+ * Validation required
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function required(value) {
-  return value || value === 0;
+  return value || value === '0';
 }
 
+/**
+ *
+ * @param value {string}
+ * @param min {number}
+ * @return {boolean}
+ */
 function minLength(value, min) {
   return value.length >= min;
 }
 
+/**
+ *
+ * @param value {string}
+ * @param max {number}
+ * @return {boolean}
+ */
 function maxLength(value, max) {
   return value.length <= max;
 }
 
-function isTrue(value) {
-  return value === true;
-}
-
+/**
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function phone(value) {
+  // delete mask symbols
   let numbers = value.replace(/[^\d]/g, '');
   return /^[\d]{10}$/.test(numbers);
 }
 
+/**
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function email(value) {
   return /^.+@.+$/.test(value);
 }
 
+/**
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function password(value) {
   return /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/g.test(value);
 }
 
+/**
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function isNumber(value) {
   return /^[0-9]+$/.test(value);
 }
 
+/**
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function isText(value) {
   if (value.length > 2) {
     return /^[a-zA-Zа-яА-ЯёЁ'][a-zA-Zа-яА-ЯёЁ\-' ]+[a-zA-Zа-яА-ЯёЁ']?$/.test(
@@ -41,31 +81,13 @@ function isText(value) {
   }
 }
 
+/**
+ *
+ * @param value {string}
+ * @return {boolean}
+ */
 function isSymbols(value) {
   return /^([a-zA-Zа-яА-ЯёЁ0-9!\-.?_ ]+)$/gm.test(value);
-}
-
-function isDate(value) {
-  let isSuccessFormat = /^(\d{2}.)(\d{2}.)(\d{4})$/.test(value);
-  let result = false;
-  let MIN_YEAR_MAJORITY = new Date().getFullYear() - 18;
-
-  function isRangeNumber(min, max, number) {
-    return number >= min && number <= max;
-  }
-
-  if (isSuccessFormat) {
-    let [day, month, year] = value.split('.');
-    let _day = parseInt(day.trim(), 10);
-    let _month = parseInt(month.trim(), 10);
-    let _year = parseInt(year.trim(), 10);
-
-    result =
-      isRangeNumber(1, 31, _day) &&
-      isRangeNumber(1, 12, _month) &&
-      isRangeNumber(1900, MIN_YEAR_MAJORITY, _year);
-  }
-  return result;
 }
 
 export const RULES_HANDLERS = {
@@ -87,12 +109,6 @@ export const RULES_HANDLERS = {
     handler: maxLength,
     errorText: function (param) {
       return `Максимальный размер текста ${param} символов`;
-    },
-  },
-  isTrue: {
-    handler: isTrue,
-    errorText: function (param) {
-      return false;
     },
   },
   phone: {
@@ -125,12 +141,6 @@ export const RULES_HANDLERS = {
       return typeof param === 'string' && !!param.length
         ? param
         : 'Введите корректные данные';
-    },
-  },
-  isDate: {
-    handler: isDate,
-    errorText: function (params) {
-      return 'Введите корректную дату';
     },
   },
   isSymbols: {
