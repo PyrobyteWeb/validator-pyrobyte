@@ -1,6 +1,6 @@
 {
   "name": "validator-pyrobyte",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Validator on VanilaJS",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
