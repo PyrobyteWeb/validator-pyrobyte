@@ -1,5 +1,12 @@
 import {RULES_HANDLERS} from "./utils";
 
+/**
+ *
+ * @param rulesHandlers
+ * @param rules
+ * @param value
+ * @return {{passed: boolean, errors: *[]}}
+ */
 function validate(rulesHandlers, rules, value) {
   let passed = true;
   let errors = [];
@@ -47,7 +54,15 @@ function validateAll(rules, data) {
   return result;
 }
 
+/**
+ * Class handle validator
+ */
 export class Validator {
+  /**
+   *
+   * @param rules
+   * @param rulesHandlers
+   */
   constructor(rules, rulesHandlers = RULES_HANDLERS) {
     this.rules = rules;
     this.rulesHandlers = rulesHandlers;
@@ -55,7 +70,8 @@ export class Validator {
 
   /**
    *
-   * @param data {string}
+   * @method checkAll
+   * @param data {Object}
    * @return {{passed: boolean, errors: {}}}
    */
   checkAll(data) {
@@ -64,6 +80,7 @@ export class Validator {
 
   /**
    *
+   * @method check
    * @param name {string}
    * @param data {string}
    * @return {{passed: boolean, errors: *[]}}
