@@ -52,10 +52,22 @@ export class Validator {
     this.rules = rules;
     this.rulesHandlers = rulesHandlers;
   }
+
+  /**
+   *
+   * @param data {string}
+   * @return {{passed: boolean, errors: {}}}
+   */
   checkAll(data) {
     return validateAll(this.rules, data);
   }
 
+  /**
+   *
+   * @param name {string}
+   * @param data {string}
+   * @return {{passed: boolean, errors: *[]}}
+   */
   check(name, data) {
     return validate(this.rulesHandlers, this.rules[name], data);
   }
