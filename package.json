@@ -1,6 +1,6 @@
 {
   "name": "validator-pyrobyte",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Validator on VanilaJS",
   "main": "dist/index.js",
   "scripts": {
