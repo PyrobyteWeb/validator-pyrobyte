@@ -2,8 +2,10 @@
   "name": "validator-pyrobyte",
   "version": "0.0.3",
   "description": "Validator on VanilaJS",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
