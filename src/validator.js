@@ -1,4 +1,4 @@
-import {RULES_HANDLERS} from "./utils";
+import {RULES_VALIDATION} from "./utils";
 
 /**
  *
@@ -63,7 +63,7 @@ export class Validator {
    * @param rules
    * @param rulesHandlers
    */
-  constructor(rules, rulesHandlers = RULES_HANDLERS) {
+  constructor(rules, rulesHandlers = RULES_VALIDATION) {
     this._rules = rules;
     this._rulesHandlers = rulesHandlers;
   }

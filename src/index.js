@@ -1,5 +1,5 @@
 import {Validator} from "./validator";
-import {RULES_HANDLERS} from "./utils";
+import {RULES_VALIDATION} from "./utils";
 
 export {
   /**
@@ -11,5 +11,5 @@ export {
    * @return {{passed: boolean, errors: *[]}}
    */
   Validator,
-  RULES_HANDLERS
+  RULES_VALIDATION
 };

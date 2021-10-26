@@ -90,7 +90,7 @@ function isSymbols(value) {
   return /^([a-zA-Zа-яА-ЯёЁ0-9!\-.?_ ]+)$/gm.test(value);
 }
 
-export const RULES_HANDLERS = {
+export const RULES_VALIDATION = {
   required: {
     handler: required,
     errorText: function (param) {
