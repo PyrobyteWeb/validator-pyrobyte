@@ -1,6 +1,6 @@
 {
   "name": "validator-pyrobyte",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Validator on VanilaJS",
   "main": "src/index.js",
   "scripts": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",
     "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "rollup": "^2.58.3"
   },
