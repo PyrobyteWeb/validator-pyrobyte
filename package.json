@@ -1,0 +1,28 @@
+{
+  "name": "validator-pyrobyte",
+  "version": "0.0.1",
+  "description": "Validator on VanilaJS",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "validator",
+    "vanilaJS",
+    "validation"
+  ],
+  "author": "Pyrobyte.ru <marat@pyrobyte.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.15.8",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "rollup": "^2.58.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "core-js": "^3.19.0"
+  }
+}
