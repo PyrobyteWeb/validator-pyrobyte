@@ -64,8 +64,8 @@ export class Validator {
    * @param rulesHandlers
    */
   constructor(rules, rulesHandlers = RULES_HANDLERS) {
-    this.rules = rules;
-    this.rulesHandlers = rulesHandlers;
+    this._rules = rules;
+    this._rulesHandlers = rulesHandlers;
   }
 
   /**
@@ -75,7 +75,7 @@ export class Validator {
    * @return {{passed: boolean, errors: {}}}
    */
   checkAll(data) {
-    return validateAll(this.rules, data);
+    return validateAll(this._rules, data);
   }
 
   /**
@@ -86,6 +86,6 @@ export class Validator {
    * @return {{passed: boolean, errors: *[]}}
    */
   check(name, data) {
-    return validate(this.rulesHandlers, this.rules[name], data);
+    return validate(this._rulesHandlers, this._rules[name], data);
   }
 }
