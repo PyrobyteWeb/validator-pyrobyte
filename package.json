@@ -4,7 +4,6 @@
   "description": "Validator on VanilaJS",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "browser": "dist/index.umd.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
