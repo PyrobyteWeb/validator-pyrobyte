@@ -31,6 +31,29 @@ let validationAll =  validator.checkAll({
 
 ```
 
+### Constants
+
+#### type RULES_VALIDATION:
+
+```ts
+type TRuleValidation = {
+  handler(): boolean,
+  errorText: string,
+};
+
+interface IRulesValidation {
+  [nameRule]: TRuleValidation,
+}
+
+```
+
+```js
+import {RULES_VALIDATION} from 'validator-pyrobyte';
+
+let rules: IRulesValidation = RULES_VALIDATION;
+
+```
+
 ### Methods
 
 Result methods validation `check` and `checkAll`:
@@ -59,20 +82,6 @@ interface IDataForCheckAll {
 }
 
 checkAll(data: IDataForCheckAll): IResultValidation;
-```
-
-### type RULES_VALIDATION:
-
-```ts
-interface IRuleValidation {
-  [nameRule]: {
-    handler(): boolean,
-    errorText: string,
-  }
-}
-
-type IRulesValidation = IRulesValidation[];
-
 ```
 
 ### Default handlers RULES_VALIDATION:
