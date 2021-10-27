@@ -144,3 +144,16 @@ function formingErrorText(param, defaultValue = '') {
   }
   return result;
 }
+
+export function changeRules(rulesValidation = RULES_VALIDATION, name, handler, errorText) {
+  let result = rulesValidation;
+  if(typeof name === 'string') {
+    result[name] = {
+      handler,
+      errorText: (param) => formingErrorText(param, errorText),
+    };
+  } else {
+    throw `Error name - a string is expected, but received ${typeof name}`;
+  }
+  return result;
+}

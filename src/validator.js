@@ -1,4 +1,4 @@
-import {RULES_VALIDATION} from "./utils";
+import {changeRules, RULES_VALIDATION} from "./utils";
 
 /**
  *
@@ -61,11 +61,11 @@ export class Validator {
   /**
    *
    * @param rules
-   * @param rulesHandlers
+   * @param rulesValidation
    */
-  constructor(rules, rulesHandlers = RULES_VALIDATION) {
+  constructor(rules, rulesValidation = RULES_VALIDATION) {
     this._rules = rules;
-    this._rulesHandlers = rulesHandlers;
+    this._rulesHandlers = rulesValidation;
   }
 
   /**
@@ -86,6 +86,14 @@ export class Validator {
    * @return {{passed: boolean, errors: *[]}}
    */
   check(name, data) {
-    return validate(this._rulesHandlers, this._rules[name], data);
+    return validate(this._rulesValidation, this._rules[name], data);
+  }
+
+  changeRule(nameRule, handler, errorText) {
+    this._setRulesValidation(changeRules(this._rulesValidation, nameRule, handler, errorText));
+  }
+
+  _setRulesValidation(value) {
+    this._rulesValidation = value;
   }
 }
