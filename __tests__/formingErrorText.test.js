@@ -1,6 +1,6 @@
 const {formingErrorText} = require("../src/utils");
 
-describe('Testing utils', () => {
+describe('Testing formingErrorText function', () => {
   test('Check result return text', () => {
     expect(formingErrorText('text', 'default text')).toBe('text');
   });

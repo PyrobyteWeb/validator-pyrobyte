@@ -153,7 +153,7 @@ export function changeRules(name, handler, errorText, rulesValidation = RULES_VA
       errorText: (param) => formingErrorText(param, errorText),
     };
   } else {
-    throw `Error name - a string is expected, but received ${typeof name}`;
+    throw new Error(`Error name - a string is expected, but received ${typeof name}`);
   }
   return result;
 }
