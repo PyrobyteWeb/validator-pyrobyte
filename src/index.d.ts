@@ -24,6 +24,6 @@ declare class Validator {
   changeRule(name: string, handler: (value: string) => boolean, errorText: string);
 }
 
-declare const RULES_VALIDATION: IRulesValidation;
+declare let RULES_VALIDATION: IRulesValidation;
 
 export {Validator, RULES_VALIDATION};
