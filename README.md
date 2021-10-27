@@ -1,5 +1,11 @@
 # validator-pyrobyte
 
+### Installation
+
+```shell
+npm install --save validator-pyrobyte
+```
+
 ### Example
 
 ```js
