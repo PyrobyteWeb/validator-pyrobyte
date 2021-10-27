@@ -84,6 +84,32 @@ interface IDataForCheckAll {
 checkAll(data: IDataForCheckAll): IResultValidation;
 ```
 
+#### ChangeRule
+
+```ts
+changeRule(
+  nameRule: string, 
+  handler(value: string): boolean, 
+  errorText: string
+)
+```
+
+```ts
+import {Validator} from 'validator-pyrobyte';
+
+let validator = new Validator({
+  text: {
+    isText: true,
+  },
+});
+// new rule
+validator.changeRule('new', (v) => !!v, 'some error text');
+
+// change default rule
+validator.changeRule('isText', (v) => /^(/d)/.test(v), 'new error text');
+
+```
+
 ### Default handlers RULES_VALIDATION:
 
 ```js
