@@ -18,7 +18,7 @@ interface IRulesValidation {
 }
 
 declare class Validator {
-  constructor(rules: IRules, rulesValidation: IRulesValidation)
+  constructor(rules: IRules, rulesValidation?: IRulesValidation)
   check(name: string, data: string): IResultValidation;
   checkAll(data: string): IRulesValidation;
   changeRule(name: string, handler: (value: string) => boolean, errorText: string);
