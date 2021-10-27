@@ -18,6 +18,7 @@
   "author": "Pyrobyte.ru <marat@pyrobyte.ru>",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
@@ -29,6 +30,7 @@
     "dist"
   ],
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.15.4",
     "core-js": "^3.19.0"
   }
 }

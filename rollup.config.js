@@ -16,22 +16,31 @@ export default [
       nodeResolve(),
       commonjs(),
       babel({
-        babelHelpers: 'bundled',
+        babelHelpers: 'runtime',
         exclude: ['node_modules/**']
       }),
       terser()
     ]
   },
   {
+    external: [/@babel\/runtime/],
     input: './src/index.js',
     output: [
-      {file: pkg.main, format: 'cjs', plugins: [terser({toplevel: true})]},
-      {file: pkg.module, format: 'es', plugins: [terser({module: true})]},
+      {
+        file: pkg.main,
+        format: 'cjs',
+        plugins: [terser({toplevel: true})],
+      },
+      {
+        file: pkg.module,
+        format: 'es',
+        plugins: [terser({module: true})],
+      },
     ],
     plugins: [
       nodeResolve(),
       babel({
-        babelHelpers: 'bundled',
+        babelHelpers: 'runtime',
         exclude: ['node_modules/**']
       })
     ]
