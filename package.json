@@ -4,6 +4,7 @@
   "description": "Validator on VanilaJS",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -22,6 +23,7 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "rollup": "^2.58.3",
+    "rollup-plugin-dts": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "files": [
