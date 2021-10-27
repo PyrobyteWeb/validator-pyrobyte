@@ -135,7 +135,7 @@ export const RULES_VALIDATION = {
  * @param defaultValue {string}
  * @return {{length}}
  */
-function formingErrorText(param, defaultValue = '') {
+export function formingErrorText(param, defaultValue = '') {
   let result;
   if(typeof param === 'string' && !!param.length) {
     result = param;
@@ -145,7 +145,7 @@ function formingErrorText(param, defaultValue = '') {
   return result;
 }
 
-export function changeRules(rulesValidation = RULES_VALIDATION, name, handler, errorText) {
+export function changeRules(name, handler, errorText, rulesValidation = RULES_VALIDATION) {
   let result = rulesValidation;
   if(typeof name === 'string') {
     result[name] = {

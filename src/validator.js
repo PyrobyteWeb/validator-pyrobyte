@@ -90,7 +90,7 @@ export class Validator {
   }
 
   changeRule(nameRule, handler, errorText) {
-    this._setRulesValidation(changeRules(this._rulesValidation, nameRule, handler, errorText));
+    this._setRulesValidation(changeRules(nameRule, handler, errorText, this._rulesValidation));
   }
 
   _setRulesValidation(value) {
