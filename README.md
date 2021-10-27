@@ -15,7 +15,7 @@ import { Validator } from 'validator-pyrobyte';
 let rules = {
     text: {
         required: true,
-        min: 10,
+        minLength: 10,
     },
     phone: {
         phone: true,
