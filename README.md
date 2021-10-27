@@ -7,21 +7,21 @@
 import { Validator } from 'validator-pyrobyte';
 
 let rules = {
-    [nameRule]: {
+    text: {
         required: true,
         min: 10,
     },
-    [nameRule2]: {
+    phone: {
         phone: true,
     },
 };
 
 let validator = new Validator();
-let validationNameRule = validator.check('nameRule', valueNameRule); // result methods validation
+let validationNameRule = validator.check('text', valueText); // return IResultValidation
 let validationNameRule2 =  validator.checkAll({
-  [nameRule]: valueNameRule,
-  [nameRule2]: valueNameRule2,
-}); // result methods validation
+  text: valueNameText,
+  phone: valueNamePhone,
+}); // return IResultValidation
 
 ```
 
@@ -49,7 +49,7 @@ check(nameRule: string, valueNameRule: string): IResultValidation;
 ```ts
 
 interface IDataForCheckAll {
-  [nameRule]: valueNameRule,
+  [nameRule]: string,
 }
 
 checkAll(data: IDataForCheckAll): IResultValidation;
