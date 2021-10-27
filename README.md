@@ -17,8 +17,8 @@ let rules = {
 };
 
 let validator = new Validator();
-let validationNameRule = validator.check('text', valueText); // return IResultValidation
-let validationNameRule2 =  validator.checkAll({
+let validationText = validator.check('text', valueText); // return IResultValidation
+let validationAll =  validator.checkAll({
   text: valueNameText,
   phone: valueNamePhone,
 }); // return IResultValidation
