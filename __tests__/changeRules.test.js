@@ -19,4 +19,8 @@ describe('Testing changeRules utils function', () => {
     expect(() => changeRules(true, (v) => !!v, 'some error'))
       .toThrow('Error name - a string is expected, but received boolean');
   });
+  test('Check throw error', () => {
+    let result = changeRules('isText', null, 'some error');
+    expect(result.isText.handler).toBe(null);
+  });
 });
