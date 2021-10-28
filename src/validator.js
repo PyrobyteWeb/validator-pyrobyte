@@ -20,12 +20,16 @@ export function validate(rulesHandlers, rules, value) {
       if (param.value) {
         _param = param.value;
       }
-      if (!rulesHandlers[nameRule].handler(value, _param)) {
-        let errorText = param.errorText
-          ? param.errorText
-          : rulesHandlers[nameRule].errorText(_param);
-        passed = false;
-        errors.push(errorText);
+      if(!!rulesHandlers && Object.keys(rulesHandlers).length) {
+        if (!rulesHandlers[nameRule].handler(value, _param)) {
+          let errorText = param.errorText
+            ? param.errorText
+            : rulesHandlers[nameRule].errorText(_param);
+          passed = false;
+          errors.push(errorText);
+        }
+      } else {
+        throw new Error(`rulesValidation is not valid, equalTo ${rulesHandlers}`)
       }
     }
   } else {
