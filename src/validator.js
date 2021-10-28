@@ -42,20 +42,28 @@ export function validate(rulesHandlers, rules, value) {
   };
 }
 
-export function validateAll(rules, data) {
+export function validateAll(rulesValidation, rules, data) {
   let result = {
     errors: {},
     passed: true,
   };
   // Поле для которого правило
-  for (const key in data) {
-    if (rules[key]) {
-      let status = validate(rules[key], data[key]);
-      result.errors[key] = status.errors;
-      if (!status.passed) {
-        result.passed = false;
+  if(!!data && typeof data === 'object' && Object.keys(data).length) {
+    for (const key in data) {
+      if(data.hasOwnProperty(key)) {
+        if (rules[key]) {
+          let status = validate(rulesValidation, rules[key], data[key]);
+          result.errors[key] = status.errors;
+          if (!status.passed) {
+            result.passed = false;
+          }
+        }
       }
     }
+  } else {
+    throw new Error(`
+      data for checkAll equalTo ${typeof data}${!Object.keys(data).length ? ', object is empty' : ''}
+    `);
   }
   return result;
 }
@@ -81,7 +89,7 @@ export class Validator {
    * @return {{passed: boolean, errors: {}}}
    */
   checkAll(data) {
-    return validateAll(this._rules, data);
+    return validateAll(this._rulesValidation, this._rules, data);
   }
 
   /**
