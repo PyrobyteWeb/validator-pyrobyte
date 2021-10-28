@@ -7,7 +7,7 @@ import {changeRules, RULES_VALIDATION} from "./utils";
  * @param value
  * @return {{passed: boolean, errors: *[]}}
  */
-function validate(rulesHandlers, rules, value) {
+export function validate(rulesHandlers, rules, value) {
   let passed = true;
   let errors = [];
 
@@ -28,6 +28,8 @@ function validate(rulesHandlers, rules, value) {
         errors.push(errorText);
       }
     }
+  } else {
+    throw new Error('nameRule is undefined for rules');
   }
 
   return {
@@ -36,7 +38,7 @@ function validate(rulesHandlers, rules, value) {
   };
 }
 
-function validateAll(rules, data) {
+export function validateAll(rules, data) {
   let result = {
     errors: {},
     passed: true,
@@ -65,7 +67,7 @@ export class Validator {
    */
   constructor(rules, rulesValidation = RULES_VALIDATION) {
     this._rules = rules;
-    this._rulesHandlers = rulesValidation;
+    this._rulesValidation = rulesValidation;
   }
 
   /**
