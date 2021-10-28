@@ -18,5 +18,5 @@ describe('Testing changeRules utils function', () => {
   test('Check throw error', () => {
     expect(() => changeRules(true, (v) => !!v, 'some error'))
       .toThrow('Error name - a string is expected, but received boolean');
-  })
+  });
 });
