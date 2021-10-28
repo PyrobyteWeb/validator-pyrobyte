@@ -40,4 +40,41 @@ describe('Testing class Validator', () => {
       expect(() => validator.check('text', '')).toThrow();
     });
   });
+
+  describe('Testing method "checkAll"', () => {
+    beforeEach(() => {
+      validator = new Validator({text: {required: true,}, phone: {phone: true}});
+    });
+
+    test('Check throws for checkAll', () => {
+      expect(() => validator.checkAll({})).toThrow();
+      expect(() => validator.checkAll(null)).toThrow();
+      expect(validator.checkAll(
+        {
+          text: '100',
+          phone: '9239991122',
+        }
+      ))
+        .toEqual({
+          passed: true,
+          errors: {
+            text: [],
+            phone: [],
+          }
+        });
+      expect(validator.checkAll(
+        {
+          text: '',
+          phone: '',
+        }
+      ))
+      .toEqual({
+        passed: false,
+        errors: {
+          text: [RULES_VALIDATION.required.errorText(true)],
+          phone: [RULES_VALIDATION.phone.errorText(true)],
+        }
+      });
+    });
+  });
 });
