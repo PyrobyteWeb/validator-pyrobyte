@@ -5,7 +5,7 @@
  * @return {boolean}
  */
 function required(value) {
-  return value || value === '0';
+  return value || value === "0";
 }
 
 /**
@@ -35,7 +35,7 @@ function maxLength(value, max) {
  */
 function phone(value) {
   // delete mask symbols
-  let numbers = value.replace(/[^\d]/g, '');
+  const numbers = value.replace(/[^\d]/g, "");
   return /^[\d]{10}$/.test(numbers);
 }
 
@@ -72,13 +72,15 @@ function isNumber(value) {
  * @return {boolean}
  */
 function isText(value) {
+  let result;
   if (value.length > 2) {
-    return /^[a-zA-Zа-яА-ЯёЁ'][a-zA-Zа-яА-ЯёЁ\-' ]+[a-zA-Zа-яА-ЯёЁ']?$/.test(
-      value,
+    result = /^[a-zA-Zа-яА-ЯёЁ'][a-zA-Zа-яА-ЯёЁ\-' ]+[a-zA-Zа-яА-ЯёЁ']?$/.test(
+      value
     );
   } else {
-    return /^[a-zA-Zа-яА-ЯёЁ']*$/.test(value);
+    result = /^[a-zA-Zа-яА-ЯёЁ']*$/.test(value);
   }
+  return result;
 }
 
 /**
@@ -90,54 +92,15 @@ function isSymbols(value) {
   return /^([a-zA-Zа-яА-ЯёЁ0-9!\-.?_ ]+)$/gm.test(value);
 }
 
-export const RULES_VALIDATION = {
-  required: {
-    handler: required,
-    errorText: (param) => formingErrorText(param, 'Поле обязательно для заполнения'),
-  },
-  minLength: {
-    handler: minLength,
-    errorText: (param) => formingErrorText(param, `Минимальный размер текста ${param} символов`),
-  },
-  maxLength: {
-    handler: maxLength,
-    errorText: (param) => formingErrorText(param, `Максимальный размер текста ${param} символов`),
-  },
-  phone: {
-    handler: phone,
-    errorText: (param) => formingErrorText(param, 'Введите номер в 10-значном формате'),
-  },
-  email: {
-    handler: email,
-    errorText: (param) => formingErrorText(param, 'Введен некорректный Email'),
-  },
-  password: {
-    handler: password,
-    errorText: (param) => formingErrorText(param, 'Пароль не менее 6 символов, в том числе цифры,\nстрочные и заглавные буквы'),
-  },
-  isNumber: {
-    handler: isNumber,
-    errorText: (param) => formingErrorText(param, 'Введите цифры'),
-  },
-  isText: {
-    handler: isText,
-    errorText: (param) => formingErrorText(param, 'Введите корректные данные'),
-  },
-  isSymbols: {
-    handler: isSymbols,
-    errorText: (param) => formingErrorText(param, 'Разрешены только буквы или цифры'),
-  },
-};
-
 /**
  *
  * @param param {string | number}
  * @param defaultValue {string}
  * @return {{length}}
  */
-export function formingErrorText(param, defaultValue = '') {
+export function formingErrorText(param, defaultValue = "") {
   let result;
-  if(typeof param === 'string' && !!param.length) {
+  if (typeof param === "string" && !!param.length) {
     result = param;
   } else {
     result = defaultValue;
@@ -145,15 +108,70 @@ export function formingErrorText(param, defaultValue = '') {
   return result;
 }
 
-export function changeRules(name, handler, errorText, rulesValidation = RULES_VALIDATION) {
-  let result = rulesValidation;
-  if(typeof name === 'string') {
+export const RULES_VALIDATION = {
+  required: {
+    handler: required,
+    errorText: (param) =>
+      formingErrorText(param, "Поле обязательно для заполнения"),
+  },
+  minLength: {
+    handler: minLength,
+    errorText: (param) =>
+      formingErrorText(param, `Минимальный размер текста ${param} символов`),
+  },
+  maxLength: {
+    handler: maxLength,
+    errorText: (param) =>
+      formingErrorText(param, `Максимальный размер текста ${param} символов`),
+  },
+  phone: {
+    handler: phone,
+    errorText: (param) =>
+      formingErrorText(param, "Введите номер в 10-значном формате"),
+  },
+  email: {
+    handler: email,
+    errorText: (param) => formingErrorText(param, "Введен некорректный Email"),
+  },
+  password: {
+    handler: password,
+    errorText: (param) =>
+      formingErrorText(
+        param,
+        "Пароль не менее 6 символов, в том числе цифры,\nстрочные и заглавные буквы"
+      ),
+  },
+  isNumber: {
+    handler: isNumber,
+    errorText: (param) => formingErrorText(param, "Введите цифры"),
+  },
+  isText: {
+    handler: isText,
+    errorText: (param) => formingErrorText(param, "Введите корректные данные"),
+  },
+  isSymbols: {
+    handler: isSymbols,
+    errorText: (param) =>
+      formingErrorText(param, "Разрешены только буквы или цифры"),
+  },
+};
+
+export function changeRules(
+  name,
+  handler,
+  errorText,
+  rulesValidation = RULES_VALIDATION
+) {
+  const result = rulesValidation;
+  if (typeof name === "string") {
     result[name] = {
       handler,
       errorText: (param) => formingErrorText(param, errorText),
     };
   } else {
-    throw new Error(`Error name - a string is expected, but received ${typeof name}`);
+    throw new Error(
+      `Error name - a string is expected, but received ${typeof name}`
+    );
   }
   return result;
 }

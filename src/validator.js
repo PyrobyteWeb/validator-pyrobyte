@@ -1,4 +1,4 @@
-import {changeRules, RULES_VALIDATION} from "./utils";
+import { changeRules, RULES_VALIDATION } from "./utils";
 
 /**
  *
@@ -20,7 +20,7 @@ export function validate(rulesHandlers, rules, value) {
       if (param.value) {
         _param = param.value;
       }
-      if(!!rulesHandlers && Object.keys(rulesHandlers).length) {
+      if (!!rulesHandlers && Object.keys(rulesHandlers).length) {
         if (!rulesHandlers[nameRule].handler(value, _param)) {
           let errorText = param.errorText
             ? param.errorText
@@ -29,11 +29,13 @@ export function validate(rulesHandlers, rules, value) {
           errors.push(errorText);
         }
       } else {
-        throw new Error(`rulesValidation is not valid, equalTo ${rulesHandlers}`)
+        throw new Error(
+          `rulesValidation is not valid, equalTo ${rulesHandlers}`
+        );
       }
     }
   } else {
-    throw new Error('nameRule is undefined for rules');
+    throw new Error("nameRule is undefined for rules");
   }
 
   return {
@@ -48,21 +50,21 @@ export function validateAll(rulesValidation, rules, data) {
     passed: true,
   };
   // Поле для которого правило
-  if(!!data && typeof data === 'object' && Object.keys(data).length) {
+  if (!!data && typeof data === "object" && Object.keys(data).length) {
     for (const key in data) {
-      if(data.hasOwnProperty(key)) {
-        if (rules[key]) {
-          let status = validate(rulesValidation, rules[key], data[key]);
-          result.errors[key] = status.errors;
-          if (!status.passed) {
-            result.passed = false;
-          }
+      if (rules[key]) {
+        let status = validate(rulesValidation, rules[key], data[key]);
+        result.errors[key] = status.errors;
+        if (!status.passed) {
+          result.passed = false;
         }
       }
     }
   } else {
     throw new Error(`
-      data for checkAll equalTo ${typeof data}${!Object.keys(data).length ? ', object is empty' : ''}
+      data for checkAll equalTo ${typeof data}${
+      !Object.keys(data).length ? ", object is empty" : ""
+    }
     `);
   }
   return result;
@@ -104,7 +106,9 @@ export class Validator {
   }
 
   changeRule(nameRule, handler, errorText) {
-    this._setRulesValidation(changeRules(nameRule, handler, errorText, this._rulesValidation));
+    this._setRulesValidation(
+      changeRules(nameRule, handler, errorText, this._rulesValidation)
+    );
   }
 
   _setRulesValidation(value) {
