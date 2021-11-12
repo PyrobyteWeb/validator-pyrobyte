@@ -8,7 +8,7 @@ import pkg from "./package.json";
 export default [
   {
     external: [/@babel\/runtime/],
-    input: "./src/index.js",
+    input: "./src/index.ts",
     output: [
       {
         file: pkg.main,

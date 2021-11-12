@@ -1,4 +1,12 @@
 import { changeRules, RULES_VALIDATION } from "./utils";
+import {
+  IData,
+  IResultValidation,
+  IRule,
+  IRules,
+  IRulesValidation,
+  IValidator,
+} from "./types";
 
 /**
  *
@@ -7,7 +15,11 @@ import { changeRules, RULES_VALIDATION } from "./utils";
  * @param value
  * @return {{passed: boolean, errors: *[]}}
  */
-export function validate(rulesHandlers, rules, value) {
+export function validate(
+  rulesHandlers: IRulesValidation,
+  rules: IRule,
+  value: string
+): IResultValidation {
   let passed = true;
   let errors = [];
 
@@ -16,15 +28,20 @@ export function validate(rulesHandlers, rules, value) {
     // param это данные для настройки функции валидатора
     for (let [nameRule, param] of Object.entries(rules)) {
       // берём правила валидации и проверяем значение с нужными параметрами
-      let _param = param;
-      if (param.value) {
-        _param = param.value;
+      let _param: number;
+      if (typeof param === "number") {
+        _param = param;
+      } else {
+        _param = 0;
       }
       if (!!rulesHandlers && Object.keys(rulesHandlers).length) {
         if (!rulesHandlers[nameRule].handler(value, _param)) {
-          let errorText = param.errorText
-            ? param.errorText
-            : rulesHandlers[nameRule].errorText(_param);
+          let errorText: string;
+          if (typeof param === "string") {
+            errorText = param;
+          } else {
+            errorText = rulesHandlers[nameRule].errorText(_param);
+          }
           passed = false;
           errors.push(errorText);
         }
@@ -44,8 +61,12 @@ export function validate(rulesHandlers, rules, value) {
   };
 }
 
-export function validateAll(rulesValidation, rules, data) {
-  let result = {
+export function validateAll(
+  rulesValidation: IRulesValidation,
+  rules: IRules,
+  data: IData
+): IResultValidation {
+  let result: IResultValidation = {
     errors: {},
     passed: true,
   };
@@ -53,7 +74,12 @@ export function validateAll(rulesValidation, rules, data) {
   if (!!data && typeof data === "object" && Object.keys(data).length) {
     for (const key in data) {
       if (rules[key]) {
-        let status = validate(rulesValidation, rules[key], data[key]);
+        let status: IResultValidation = validate(
+          rulesValidation,
+          rules[key],
+          data[key]
+        );
+        // @ts-ignore
         result.errors[key] = status.errors;
         if (!status.passed) {
           result.passed = false;
@@ -73,13 +99,14 @@ export function validateAll(rulesValidation, rules, data) {
 /**
  * Class handle validator
  */
-export class Validator {
-  /**
-   *
-   * @param rules
-   * @param rulesValidation
-   */
-  constructor(rules, rulesValidation = RULES_VALIDATION) {
+export class Validator implements IValidator {
+  private readonly _rules: IRules;
+  private _rulesValidation: IRulesValidation;
+
+  constructor(
+    rules: IRules,
+    rulesValidation: IRulesValidation = RULES_VALIDATION
+  ) {
     this._rules = rules;
     this._rulesValidation = rulesValidation;
   }
@@ -90,7 +117,7 @@ export class Validator {
    * @param data {Object}
    * @return {{passed: boolean, errors: {}}}
    */
-  checkAll(data) {
+  checkAll(data: IData): IResultValidation {
     return validateAll(this._rulesValidation, this._rules, data);
   }
 
@@ -101,17 +128,21 @@ export class Validator {
    * @param data {string}
    * @return {{passed: boolean, errors: *[]}}
    */
-  check(name, data) {
+  check(name: string, data: string): IResultValidation {
     return validate(this._rulesValidation, this._rules[name], data);
   }
 
-  changeRule(nameRule, handler, errorText) {
+  changeRule(
+    nameRule: string,
+    handler: (v: string) => boolean,
+    errorText: string
+  ): void {
     this._setRulesValidation(
       changeRules(nameRule, handler, errorText, this._rulesValidation)
     );
   }
 
-  _setRulesValidation(value) {
+  _setRulesValidation(value: IRulesValidation): void {
     this._rulesValidation = value;
   }
 }

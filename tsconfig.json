@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ESNext",
+    "moduleResolution": "Node",
     "target": "es5",
     "sourceMap": false,
     "noImplicitAny": true,
@@ -10,6 +11,8 @@
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "src/**/*"
   ]
-
 }

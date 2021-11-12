@@ -1,9 +1,9 @@
-import { IResultValidation, IRules, IRulesValidation } from "./types";
+import {IData, IResultValidation, IRules, IRulesValidation} from "./types";
 
 declare class Validator {
   constructor(rules: IRules, rulesValidation?: IRulesValidation);
   check(name: string, data: string): IResultValidation;
-  checkAll(data: string): IRulesValidation;
+  checkAll(data: IData): IRulesValidation;
   changeRule(
     name: string,
     handler: (value: string) => boolean,
