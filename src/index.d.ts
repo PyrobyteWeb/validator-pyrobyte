@@ -19,8 +19,8 @@ interface IRules {
 }
 interface IRulesValidation {
   [nameRule: string]: {
-    handler(value: string): boolean;
-    errorText: string;
+    handler(value: string | number, param?: number): boolean;
+    errorText(param: string | number): string;
   };
 }
 
