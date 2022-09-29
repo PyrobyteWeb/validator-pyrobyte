@@ -1,6 +1,11 @@
 export interface IResultValidation {
   passed: boolean;
-  errors: string[] | { [nameRule: string]: string[] };
+  errors: string[];
+}
+
+export interface IResultAllValidation {
+  passed: boolean;
+  errors: { [nameRule: string]: string[] };
 }
 
 export interface IData {
@@ -22,7 +27,7 @@ export interface IRulesValidation {
 }
 export interface IValidator {
   check(name: string, data: string): IResultValidation;
-  checkAll(data: IRule): IResultValidation;
+  checkAll(data: IRule): IResultAllValidation;
   changeRule(
     nameRule: string,
     handler: (v: string) => boolean,

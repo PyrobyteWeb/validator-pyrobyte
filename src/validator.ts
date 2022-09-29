@@ -1,6 +1,7 @@
 import { changeRules, RULES_VALIDATION } from "./utils";
 import {
   IData,
+  IResultAllValidation,
   IResultValidation,
   IRule,
   IRules,
@@ -65,8 +66,8 @@ export function validateAll(
   rulesValidation: IRulesValidation,
   rules: IRules,
   data: IData
-): IResultValidation {
-  let result: IResultValidation = {
+): IResultAllValidation {
+  let result: IResultAllValidation = {
     errors: {},
     passed: true,
   };
@@ -79,7 +80,7 @@ export function validateAll(
           rules[key],
           data[key]
         );
-        // @ts-ignore
+
         result.errors[key] = status.errors;
         if (!status.passed) {
           result.passed = false;
@@ -117,7 +118,7 @@ export class Validator implements IValidator {
    * @param data {Object}
    * @return {{passed: boolean, errors: {}}}
    */
-  checkAll(data: IData): IResultValidation {
+  checkAll(data: IData) {
     return validateAll(this._rulesValidation, this._rules, data);
   }
 
