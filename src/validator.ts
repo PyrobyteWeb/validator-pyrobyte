@@ -9,13 +9,6 @@ import {
   IValidator,
 } from "./types";
 
-/**
- *
- * @param rulesHandlers
- * @param rules
- * @param value
- * @return {{passed: boolean, errors: *[]}}
- */
 export function validate(
   rulesHandlers: IRulesValidation,
   rules: IRule,
@@ -97,9 +90,6 @@ export function validateAll(
   return result;
 }
 
-/**
- * Class handle validator
- */
 export class Validator implements IValidator {
   private readonly _rules: IRules;
   private _rulesValidation: IRulesValidation;
@@ -112,23 +102,10 @@ export class Validator implements IValidator {
     this._rulesValidation = rulesValidation;
   }
 
-  /**
-   *
-   * @method checkAll
-   * @param data {Object}
-   * @return {{passed: boolean, errors: {}}}
-   */
   checkAll(data: IData) {
     return validateAll(this._rulesValidation, this._rules, data);
   }
 
-  /**
-   *
-   * @method check
-   * @param name {string}
-   * @param data {string}
-   * @return {{passed: boolean, errors: *[]}}
-   */
   check(name: string, data: string): IResultValidation {
     return validate(this._rulesValidation, this._rules[name], data);
   }
