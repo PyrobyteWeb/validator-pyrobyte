@@ -55,13 +55,13 @@ export function validate(
   };
 }
 
-export function validateAll(
+export function validateAll<Rules>(
   rulesValidation: IRulesValidation,
-  rules: IRules,
-  data: IData
-): IResultAllValidation {
-  let result: IResultAllValidation = {
-    errors: {},
+  rules: IRules<Rules>,
+  data: IData<Rules>
+): IResultAllValidation<Rules> {
+  let result: IResultAllValidation<Rules> = {
+    errors: undefined,
     passed: true,
   };
   // Поле для которого правило
@@ -90,23 +90,23 @@ export function validateAll(
   return result;
 }
 
-export class Validator implements IValidator {
-  private readonly _rules: IRules;
+export class Validator<Rules> implements IValidator<Rules> {
+  private readonly _rules: IRules<Rules>;
   private _rulesValidation: IRulesValidation;
 
   constructor(
-    rules: IRules,
+    rules: IRules<Rules>,
     rulesValidation: IRulesValidation = RULES_VALIDATION
   ) {
     this._rules = rules;
     this._rulesValidation = rulesValidation;
   }
 
-  checkAll(data: IData) {
+  checkAll(data: IData<Rules>) {
     return validateAll(this._rulesValidation, this._rules, data);
   }
 
-  check(name: string, data: string): IResultValidation {
+  check(name: keyof Rules, data: string): IResultValidation {
     return validate(this._rulesValidation, this._rules[name], data);
   }
 
