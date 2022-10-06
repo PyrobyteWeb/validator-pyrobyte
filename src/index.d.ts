@@ -3,19 +3,15 @@ interface IResultValidation {
   errors: string[];
 }
 
-interface IResultValidationAll {
+interface IResultAllValidation<Rules> {
   passed: boolean;
   errors: {
-    [nameRule: string]: string[];
+    [Property in keyof Rules]: string[];
   };
 }
 
 interface IRule {
   [nameRule: string]: number | string | boolean;
-}
-
-interface IRules {
-  [nameRule: string]: IRule;
 }
 interface IRulesValidation {
   [nameRule: string]: {
@@ -23,26 +19,22 @@ interface IRulesValidation {
     errorText(param: string | number): string;
   };
 }
-
-declare class Validator {
-  constructor(rules: IRules, rulesValidation?: IRulesValidation);
-  check(name: string, data: string): IResultValidation;
-  checkAll(data: { [nameRule: string]: string }): IResultValidationAll;
+interface IValidator<Rules> {
+  check(name: keyof Rules, data: string): IResultValidation;
+  checkAll(data: IRule): IResultAllValidation<Rules>;
   changeRule(
-    name: string,
-    handler: (value: string) => boolean,
+    nameRule: string,
+    handler: (v: string) => boolean,
     errorText: string
   ): void;
 }
 
+declare class Validator<Rules> implements IValidator<Rules> {
+  changeRule(nameRule: string, handler: (v: string) => boolean, errorText: string): void;
+  check(name: keyof Rules, data: string): IResultValidation;
+  checkAll(data: IRule): IResultAllValidation<Rules>;
+}
+
 declare let RULES_VALIDATION: IRulesValidation;
 
-export {
-  Validator,
-  RULES_VALIDATION,
-  IResultValidation,
-  IRules,
-  IRulesValidation,
-  IRule,
-  IResultValidationAll,
-};
+export { RULES_VALIDATION, Validator };
