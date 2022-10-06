@@ -19,23 +19,6 @@ export default [
         format: "es",
         plugins: [terser({ module: true })],
       },
-      // {
-      //   name: "Validator",
-      //   file: "examples/index.js",
-      //   format: "iife",
-      //   sourcemap: true,
-      //   globals: {
-      //     "@babel/runtime-corejs3/helpers/classCallCheck": "_classCallCheck",
-      //     "@babel/runtime-corejs3/helpers/createClass": "_createClass",
-      //     "@babel/runtime-corejs3/helpers/typeof": "_typeof",
-      //     "@babel/runtime-corejs3/helpers/slicedToArray": "_slicedToArray",
-      //     "@babel/runtime-corejs3/core-js-stable/object/entries":
-      //       "_Object$entries2",
-      //     "@babel/runtime-corejs3/core-js-stable/object/keys": "_Object$keys",
-      //     "@babel/runtime-corejs3/core-js-stable/instance/concat":
-      //       "_concatInstanceProperty",
-      //   },
-      // },
     ],
     plugins: [
       nodeResolve(),
