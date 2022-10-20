@@ -10,27 +10,36 @@ interface IResultAllValidation<Rules> {
   };
 }
 
+type ValueRuleChecked = number | string;
+type ChangeRuleHandler = (v: string, param?: number) => boolean;
+
 interface IRule {
-  [nameRule: string]: number | string | boolean;
+  [nameRule: string]: ValueRuleChecked | boolean;
 }
 interface IRulesValidation {
   [nameRule: string]: {
-    handler(value: string | number, param?: number): boolean;
-    errorText(param: string | number): string;
+    handler: ChangeRuleHandler;
+    errorText(param: ValueRuleChecked): string;
   };
 }
+
 interface IValidator<Rules> {
   check(name: keyof Rules, data: string): IResultValidation;
   checkAll(data: IRule): IResultAllValidation<Rules>;
   changeRule(
     nameRule: string,
-    handler: (v: string) => boolean,
+    handler: ChangeRuleHandler,
     errorText: string
   ): void;
 }
 
 declare class Validator<Rules> implements IValidator<Rules> {
-  changeRule(nameRule: string, handler: (v: string) => boolean, errorText: string): void;
+  constructor(rules: Rules, rulesValidation?: IRulesValidation);
+  changeRule(
+    nameRule: string,
+    handler: ChangeRuleHandler,
+    errorText: string
+  ): void;
   check(name: keyof Rules, data: string): IResultValidation;
   checkAll(data: IRule): IResultAllValidation<Rules>;
 }
