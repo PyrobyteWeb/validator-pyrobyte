@@ -10,40 +10,48 @@ interface IResultAllValidation<Rules> {
   };
 }
 
-type ValueRuleChecked = number | string;
-type ChangeRuleHandler = (v: string, param?: number) => boolean;
+type ValidatorHandler<Data = any> = (v: Data, param?: number) => boolean;
 
-interface IRule {
-  [nameRule: string]: ValueRuleChecked | boolean;
-}
 interface IRulesValidation {
   [nameRule: string]: {
-    handler: ChangeRuleHandler;
-    errorText(param: ValueRuleChecked): string;
+    handler: ValidatorHandler;
+    errorText(param: number): string;
   };
 }
 
+type ValidatorData<Rules> = {
+  [Property in keyof Rules]: string;
+};
+
+export interface IRule {
+  [nameRule: string]: number | string | boolean;
+}
+
+export type IRules<Rules> = {
+  [Property in keyof Rules]: IRule;
+};
+
 interface IValidator<Rules> {
-  check(name: keyof Rules, data: string): IResultValidation;
-  checkAll(data: IRule): IResultAllValidation<Rules>;
-  changeRule(
+  check<Data>(name: keyof Rules, data: Data): IResultValidation;
+  checkAll<Data>(data: ValidatorData<Rules>): IResultAllValidation<Rules>;
+  changeRule<Data>(
     nameRule: string,
-    handler: ChangeRuleHandler,
+    handler: ValidatorHandler<Data>,
     errorText: string
   ): void;
 }
 
 declare class Validator<Rules> implements IValidator<Rules> {
-  constructor(rules: Rules, rulesValidation?: IRulesValidation);
-  changeRule(
+  constructor(rules: IRules<Rules>, rulesValidation?: IRulesValidation);
+  changeRule<Data>(
     nameRule: string,
-    handler: ChangeRuleHandler,
+    handler: ValidatorHandler<Data>,
     errorText: string
   ): void;
-  check(name: keyof Rules, data: string): IResultValidation;
-  checkAll(data: IRule): IResultAllValidation<Rules>;
+  check<Data>(name: keyof Rules, data: Data): IResultValidation;
+  checkAll<Data>(data: ValidatorData<Rules>): IResultAllValidation<Rules>;
 }
 
 declare let RULES_VALIDATION: IRulesValidation;
 
-export { RULES_VALIDATION, Validator };
+export { RULES_VALIDATION, Validator, IRulesValidation };
