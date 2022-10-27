@@ -22,11 +22,11 @@ let rules = {
     },
 };
 
-let validator = new Validator();
+let validator = new Validator(rules);
 let validationText = validator.check('text', valueText); // return IResultValidation
 let validationAll =  validator.checkAll({
-  text: valueNameText,
-  phone: valueNamePhone,
+  text: 'text',
+  phone: '+79998887766',
 }); // return IResultValidation
 
 ```
@@ -36,9 +36,9 @@ let validationAll =  validator.checkAll({
 #### type RULES_VALIDATION:
 
 ```ts
-type TRuleValidation = {
-  handler(): boolean,
-  errorText: string,
+type TRuleValidation<Data = any> = {
+  handler(v: Data, param?: number): boolean,
+  errorText(param: number): string,
 };
 
 interface IRulesValidation {
