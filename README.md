@@ -10,21 +10,21 @@ npm install --save validator-pyrobyte
 
 ```js
 
-import { Validator } from 'validator-pyrobyte';
+import {Validator} from 'validator-pyrobyte';
 
 let rules = {
-    text: {
-        required: true,
-        minLength: 10,
-    },
-    phone: {
-        phone: true,
-    },
+  text: {
+    required: true,
+    minLength: 10,
+  },
+  phone: {
+    phone: true,
+  },
 };
 
 let validator = new Validator(rules);
 let validationText = validator.check('text', valueText); // return IResultValidation
-let validationAll =  validator.checkAll({
+let validationAll = validator.checkAll({
   text: 'text',
   phone: '+79998887766',
 }); // return IResultValidation
@@ -61,8 +61,8 @@ Result methods validation `check` and `checkAll`:
 ```ts
 
 interface IResultValidation {
-    passed: boolean,
-    errors: string[],
+  passed: boolean,
+  errors: string[],
 }
 
 ```
@@ -70,28 +70,30 @@ interface IResultValidation {
 #### Check
 
 ```ts
-check(nameRule: string, valueNameRule: string): IResultValidation;
+
+type check<Data> = (nameRule: keyof Rules, data: Data) => IResultValidation;
 ```
 
 #### CheckAll
 
 ```ts
+import {IRules} from "./index";
 
-interface IDataForCheckAll {
-  [nameRule]: string,
-}
+type ValidatorData<Rules> = {
+  [Property in keyof Rules]: string;
+};
 
-checkAll(data: IDataForCheckAll): IResultValidation;
+type  checkAll<Data> = (data: ValidatorData<Rules>) => IResultAllValidation<Rules>;
 ```
 
 #### ChangeRule
 
 ```ts
-changeRule(
-  nameRule: string, 
-  handler(value: string): boolean, 
+type changeRule<Data> = (
+  nameRule: string,
+  handler: ValidatorHandler<Data>,
   errorText: string
-)
+) => void;
 ```
 
 ```ts
@@ -106,7 +108,7 @@ let validator = new Validator({
 validator.changeRule('new', (v) => !!v, 'some error text');
 
 // change default rule
-validator.changeRule('isText', (v) => /^(/d)/.test(v), 'new error text');
+validator.changeRule('isText', (v) => /^(\d/.test(v), 'new error text');
 
 ```
 
