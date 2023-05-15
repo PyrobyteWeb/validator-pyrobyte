@@ -8,7 +8,7 @@ npm install --save validator-pyrobyte
 
 ### Example
 
-```js
+```ts
 
 import {Validator} from 'validator-pyrobyte';
 
@@ -22,12 +22,12 @@ let rules = {
   },
 };
 
-let validator = new Validator(rules);
-let validationText = validator.check('text', valueText); // return IResultValidation
+let validator = new Validator<typeof rules>(rules);
+let validationText = validator.check('text', ""); // {passed: false, errors: ['Message error']}
 let validationAll = validator.checkAll({
   text: 'text',
   phone: '+79998887766',
-}); // return IResultValidation
+}); // {passed: true, errors: []}
 
 ```
 
@@ -78,6 +78,13 @@ type check<Data> = (nameRule: keyof Rules, data: Data) => IResultValidation;
 
 ```ts
 import {IRules} from "./index";
+
+interface IResultAllValidation<Rules> {
+  passed: boolean;
+  errors: {
+    [Property in keyof Rules]: string[];
+  };
+}
 
 type ValidatorData<Rules> = {
   [Property in keyof Rules]: string;
